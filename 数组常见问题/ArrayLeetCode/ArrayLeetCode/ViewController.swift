@@ -12,8 +12,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        var array = [0,1,1,2]
-        print(removeDuplicates(&array))
+        let str = "a"
+        let str2 = "a"
+        let leetcode = LeetCode()
+        print(leetcode.minWindow(str, str2))
     }
 
     ///283 移动零
@@ -112,5 +114,56 @@ class ViewController: UIViewController {
         }
         return index + 1
     }
+    
+    ///75 颜色分类
+    //给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+    //此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色
+    //利用三路快排，扫描一遍数组即可完成排序
+    func sortColors(_ nums: inout [Int]) {
+        var zero = -1 // 0...zero 的元素全为0
+        var two = nums.count //two ... nums.count 的元素全为2
+        var i = 0 //zero+1...i-1 的元素全为1
+        while i < two {
+            if nums[i] == 2 {
+                two -= 1
+                nums.swapAt(i, two)
+            } else if nums[i] == 0 {
+                zero += 1
+                nums.swapAt(zero, i)
+                i += 1
+            } else {
+                assert(nums[i] == 1)
+                i += 1
+            }
+        }
+    }
+    
+    ///88. 合并两个有序数组
+    //给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 num1 成为一个有序数组。
+    func merge(_ nums1: inout [Int], _ m: Int, _ nums2: [Int], _ n: Int) {
+        if n <= 0 {
+            return
+        }
+        if m <= 0 {
+            nums1 = nums2
+            return
+        }
+        var i = m - 1
+        var j = n - 1
+        var k = m + n - 1
+        while j >= 0 {
+            if i < 0 || nums2[j] > nums1[i] {
+                nums1[k] = nums2[j]
+                j -= 1
+                k -= 1
+            } else {
+                nums1[k] = nums1[i]
+                i -= 1
+                k -= 1
+            }
+        }
+    }
+    
+
 }
 
