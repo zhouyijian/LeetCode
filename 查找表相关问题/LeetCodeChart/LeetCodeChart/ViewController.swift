@@ -12,7 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        frequencySort("tree")
+        let leet = LeetCode()
+        print(leet.threeSum([0,0,0,0]))
     } 
 
     
